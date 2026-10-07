@@ -7,9 +7,11 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.keppri.clasefit.andresrivera"
     },
     "android": {
+      "package": "com.keppri.clasefit.andresrivera",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
@@ -20,6 +22,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "958610e2-aa3a-44b9-94a7-ebd757cb5510"
+      }
+    },
+    "owner": "afrivera"
   }
 }

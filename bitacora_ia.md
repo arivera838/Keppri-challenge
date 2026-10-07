@@ -29,5 +29,8 @@ tasks.md: Lista de tareas pequeñas agrupadas por capas (Domain -> Data -> Prese
 
 ## Resultado de `openspec validate`
 ```
-(pega aquí la salida)
+✔ What would you like to valid
+ate? All (changes + specs)
+✓ spec/class-booking
+Totals: 1 passed, 0 failed (1 items)
 ```
