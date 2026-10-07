@@ -1,0 +1,35 @@
+0 verbose cli /Users/macuser/.nvm/versions/node/v22.21.1/bin/node /Users/macuser/.nvm/versions/node/v22.21.1/lib/node_modules/npm/bin/npm-cli.js
+1 info using npm@11.16.0
+2 info using node@v22.21.1
+3 silly config load:file:/Users/macuser/.nvm/versions/node/v22.21.1/lib/node_modules/npm/npmrc
+4 silly config load:file:/Users/macuser/Documents/technical-test/keppri-challenge/.npmrc
+5 silly config load:file:/Users/macuser/.npmrc
+6 silly config load:file:/Users/macuser/.nvm/versions/node/v22.21.1/etc/npmrc
+7 verbose title npm exec kill 8080
+8 verbose argv "exec" "--" "kill" "8080"
+9 verbose logfile logs-max:10 dir:/Users/macuser/Documents/technical-test/keppri-challenge/local_npm/_logs/2026-10-07T15_31_23_333Z-
+10 verbose logfile /Users/macuser/Documents/technical-test/keppri-challenge/local_npm/_logs/2026-10-07T15_31_23_333Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4345298944 maxSize:1086324736 maxEntrySize:543162368
+13 http fetch GET 200 https://registry.npmjs.org/kill 307ms (cache miss)
+14 silly packumentCache heap:4345298944 maxSize:1086324736 maxEntrySize:543162368
+15 silly packumentCache heap:4345298944 maxSize:1086324736 maxEntrySize:543162368
+16 silly idealTree buildDeps
+17 silly fetch manifest kill@0.0.2
+18 silly packumentCache full:https://registry.npmjs.org/kill cache-miss
+19 http fetch GET 200 https://registry.npmjs.org/kill 224ms (cache miss)
+20 silly packumentCache full:https://registry.npmjs.org/kill set size:undefined disposed:false
+21 silly placeDep ROOT kill@0.0.2 OK for:  want: 0.0.2
+22 silly reify moves {}
+23 silly audit bulk request { kill: [ '0.0.2' ] }
+24 http cache kill@https://registry.npmjs.org/kill/-/kill-0.0.2.tgz 0ms (cache hit)
+25 silly tarball no local data for kill@https://registry.npmjs.org/kill/-/kill-0.0.2.tgz. Extracting by manifest.
+26 http fetch GET 200 https://registry.npmjs.org/kill/-/kill-0.0.2.tgz 112ms (cache miss)
+27 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 683ms
+28 silly audit report {}
+29 verbose cwd /Users/macuser/Documents/technical-test/keppri-challenge
+30 verbose os Darwin 27.0.0
+31 verbose node v22.21.1
+32 verbose npm  v11.16.0
+33 verbose exit 1
+34 verbose code 1
