@@ -46,11 +46,11 @@ rules:
 
   specs:
     - Redactar especificaciones bajo el formato BDD (Given-When-Then / Dado-Cuando-Entonces).
-    - Incluir escenarios obligatorios para: funcionamiento offline y control de cupos concurrentes.
+    - "Incluir escenarios obligatorios para: funcionamiento offline y control de cupos concurrentes."
     - Definir criterios de aceptación medibles y verificables mediante pruebas automatizadas.
 
   design:
-    - Describir la interacción entre capas: Presentation -> Hook -> UseCase -> Repository Interface -> Repository Impl -> DataSource.
+    - "Describir la interacción entre capas: Presentation -> Hook -> UseCase -> Repository Interface -> Repository Impl -> DataSource."
     - Definir interfaces de Dominio y estructuras de DTOs antes de implementar.
     - Documentar la estrategia de almacenamiento en AsyncStorage (claves, serialización JSON y control de versiones/migraciones).
     - Justificar cualquier nueva dependencia técnica frente a las directrices de Expo y Clean Architecture.
@@ -71,9 +71,6 @@ operations:
       - Validar tipado estricto con `npx tsc --noEmit` tras cada modificación.
       - Ejecutar pruebas asociadas (`npx jest <ruta-del-test>`) antes de dar la tarea por finalizada.
       - Garantizar que ningún archivo en `src/domain/` importe módulos de `data`, `presentation` o librerías externas (`react`, `react-native`, `@react-native-async-storage/async-storage`).
-
-  verify:
-    guidance:
       - Comprobar que todas las pruebas pasen con `npm test`.
       - Validar la persistencia local simulando lectura y escritura sobre AsyncStorage.
       - Confirmar cumplimiento de métricas de cobertura para la lógica de negocio (Use Cases).
