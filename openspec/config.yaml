@@ -1,32 +1,84 @@
 schema: spec-driven
 
-# Project context (optional)
-# Add only constraints that should guide OpenSpec artifacts and workflows.
-# Include constraints an agent cannot infer by reading the code.
-# Keep general project documentation and discoverable codebase facts out.
-# Example:
-#   context: |
-#     Designs and tasks must cover Windows, macOS, and Linux
-#     Write all artifacts in Spanish
+# Contexto global del proyecto y arquitectura
+context: |
+  # PROYECTO: APP MOBILE CLASEFIT (KEPPRI CHALLENGE)
+  Aplicación móvil en React Native (Expo) para el agendamiento y gestión de clases grupales en un gimnasio.
 
-# Per-artifact rules (optional)
-# Add custom rules for specific artifacts.
-# Example:
-#   rules:
-#     proposal:
-#       - Keep proposals under 500 words
-#       - Always state what is out of scope
-#     tasks:
-#       - Break tasks into chunks of max 2 hours
+  ## 1. PRINCIPIOS DE ARQUITECTURA Y DISEÑO
+  - Clean Architecture Estricta: Separación rigurosa de responsabilidades mediante la regla de dependencia unidireccional. Las capas internas (Domain) NUNCA importan capas externas (Data, Presentation, Frameworks). La comunicación entre capas se realiza estrictamente a través de Interfaces (Inversión de Dependencias).
+  - Clean Code & SOLID:
+    * Single Responsibility (S): Responsabilidad única bien delimitada.
+    * Open/Closed (O): Extensible mediante abstracciones.
+    * Liskov Substitution (L): Implementaciones intercambiables.
+    * Interface Segregation (I): Interfaces pequeñas y cohesivas.
+    * Dependency Inversion (D): Casos de uso dependen de abstracciones.
+    * Naming conventions descriptivas, funciones puras, inmutabilidad y tipado estricto con TypeScript.
 
-# Per-operation guidance (optional)
-# Add advisory guidance for how apply and archive work should be conducted.
-# This is separate from artifact rules above.
-# Example:
-#   operations:
-#     apply:
-#       guidance:
-#         - Keep test summaries concise
-#     archive:
-#       guidance:
-#         - Summarize the archive outcome before finishing
+  ## 2. ESTRATEGIA OFFLINE-FIRST Y PERSISTENCIA LOCAL
+  - Offline-First Nativo: Permitir consultar horarios, reservas activas y registrar acciones sin conexión.
+  - Persistencia y Manejo de Estado:
+    * Persistencia primaria vía `@react-native-async-storage/async-storage` (AsyncStorage).
+    * Almacenamiento local estructurado: Clases cacheadasy reservas locales.
+
+  ## 3. ESTRUCTURA DE CARPETAS (CLEAN ARCHITECTURE)
+  src/
+  ├── core/          # Configuración, constantes, utilidades, errores base, storage wrapper, NetInfo
+  ├── domain/        # CAPA DE DOMINIO: Entidades, Objetos de Valor, Contratos de Repositorios, Casos de Uso (TS puro)
+  ├── data/          # CAPA DE DATOS: DataSources (Local/Remote), Mappers, DTOs, Implementación de Repositorios
+  ├── presentation/  # CAPA DE PRESENTACIÓN: Componentes UI, Custom Hooks, Pantallas, Navegación, Tema
+  └── di/            # INYECCIÓN DE DEPENDENCIAS: Contenedor Service Locator (container.ts)
+
+  ## 4. COMANDOS DE PRUEBAS Y VERIFICACIÓN
+  - Suite completa: `npm test` o `npx jest`
+  - Modo observador: `npx jest --watch`
+  - Cobertura de código: `npx jest --coverage`
+  - Pruebas unitarias de dominio: `npx jest src/domain`
+  - Verificación estricta de tipos: `npx tsc --noEmit`
+
+# Reglas por tipo de artefacto
+rules:
+  proposal:
+    - Explicar claramente el valor de negocio y el alcance del cambio para la app.
+    - Detallar cómo el cambio impacta el comportamiento offline-first y la persistencia en AsyncStorage.
+    - Especificar explícitamente qué queda fuera de alcance (Out of Scope).
+    - Asegurar que la solución no viole los principios SOLID ni la inversión de dependencias.
+
+  specs:
+    - Redactar especificaciones bajo el formato BDD (Given-When-Then / Dado-Cuando-Entonces).
+    - Incluir escenarios obligatorios para: funcionamiento offline y control de cupos concurrentes.
+    - Definir criterios de aceptación medibles y verificables mediante pruebas automatizadas.
+
+  design:
+    - Describir la interacción entre capas: Presentation -> Hook -> UseCase -> Repository Interface -> Repository Impl -> DataSource.
+    - Definir interfaces de Dominio y estructuras de DTOs antes de implementar.
+    - Documentar la estrategia de almacenamiento en AsyncStorage (claves, serialización JSON y control de versiones/migraciones).
+    - Justificar cualquier nueva dependencia técnica frente a las directrices de Expo y Clean Architecture.
+
+  tasks:
+    - |
+      Organizar tareas siguiendo la secuencia de capas de Clean Architecture:
+      1. Domain (Entities, Value Objects, Repository Interfaces, Use Cases, Pruebas unitarias).
+      2. Data (DTOs, Mappers, Local/Remote DataSources, Repository Impl, Pruebas de datos).
+      3. Presentation (Hooks, Componentes, Pantallas, Integración UI con DI container).
+      4. Verificación y Cobertura (Pruebas de integración, verificación de tipos y validación offline).
+    - Cada tarea debe ser atómica e indicar el archivo de código fuente y su archivo de test correspondiente.
+
+# Guía para operaciones OpenSpec
+operations:
+  apply:
+    guidance:
+      - Validar tipado estricto con `npx tsc --noEmit` tras cada modificación.
+      - Ejecutar pruebas asociadas (`npx jest <ruta-del-test>`) antes de dar la tarea por finalizada.
+      - Garantizar que ningún archivo en `src/domain/` importe módulos de `data`, `presentation` o librerías externas (`react`, `react-native`, `@react-native-async-storage/async-storage`).
+
+  verify:
+    guidance:
+      - Comprobar que todas las pruebas pasen con `npm test`.
+      - Validar la persistencia local simulando lectura y escritura sobre AsyncStorage.
+      - Confirmar cumplimiento de métricas de cobertura para la lógica de negocio (Use Cases).
+
+  archive:
+    guidance:
+      - Resumir las entidades, casos de uso y componentes incorporados o modificados.
+      - Confirmar que el reporte refleje el cumplimiento de Clean Architecture y la estrategia Offline-First.
